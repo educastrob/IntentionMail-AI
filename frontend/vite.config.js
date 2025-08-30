@@ -8,7 +8,7 @@ export default defineConfig({
     host: '127.0.0.1',
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://intentionmail-ai.onrender.com/',
         changeOrigin: true,
         secure: false
       }
