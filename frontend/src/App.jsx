@@ -74,13 +74,17 @@ export default function App(){
     try {
       let results = []
       
+      // Processar textos em lote via JSON
       if (texts.length) {
-        const fd = new FormData()
-        fd.append('texts', JSON.stringify(texts))
         
         const resp = await fetch('/api/analyze_batch', { 
           method: 'POST', 
-          body: fd 
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            texts: texts
+          })
         })
         
         if (!resp.ok) {
@@ -92,9 +96,10 @@ export default function App(){
         results = results.concat(data.results || [])
       }
       
+      // Processar arquivos individualmente
       if (files.length > 0) {
         for (const file of files) {
-          try {
+          try {            
             const fd = new FormData()
             fd.append('file', file)
             
@@ -393,5 +398,4 @@ export default function App(){
       </footer>
     </div>
   )
-}
-
+}s
